@@ -36,15 +36,11 @@ nav a {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .hero-text h1 {
     font-size: 50px;
-}
-
-.hero-text h2 {
-    margin-top: 10px;
 }
 
 #typing {
@@ -74,13 +70,15 @@ nav a {
 /* SECTION */
 section {
     padding: 60px;
+    text-align: center;
 }
 
 /* SKILLS */
 .bar {
     background: #222;
     border-radius: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
+    width: 60%;
 }
 
 .bar div {
@@ -89,11 +87,12 @@ section {
     border-radius: 10px;
 }
 
-/* PROJECT */
+/* PROJECT & EXPERIENCE */
 .project {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card {
@@ -101,24 +100,47 @@ section {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 20px cyan;
-    text-align: center;
 }
 
 .card img {
     width: 200px;
     border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
 }
 
-/* SCROLL ANIMATION */
+/* ZOOM EFFECT */
+.card img:hover {
+    transform: scale(1.2);
+}
+
+/* ANIMASI */
 .hidden {
     opacity: 0;
     transform: translateY(50px);
-    transition: all 1s;
+    transition: 1s;
 }
 
 .show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero img {
+        width: 180px;
+        margin-top: 20px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 </style>
 </head>
@@ -142,9 +164,8 @@ section {
         <h2>I'm a <span id="typing"></span></h2>
 
         <p>
-        Mahasiswa Teknologi Rekayasa Konstruksi Bangunan Air dengan fokus pada
-        hidrologi dan hidrolika. Berpengalaman dalam hammer test, survey RTK,
-        serta analisis menggunakan ArcGIS, HEC-RAS, dan EPANET.
+        Mahasiswa Teknologi Rekayasa Konstruksi Bangunan Air dengan fokus pada hidrologi dan hidrolika.
+        Berpengalaman dalam hammer test, survey RTK, serta analisis menggunakan ArcGIS, HEC-RAS, dan EPANET.
         </p>
 
         <a href="#" class="btn">Download CV</a>
@@ -165,9 +186,6 @@ section {
 
     <p>HEC-RAS</p>
     <div class="bar"><div style="width:80%"></div></div>
-
-    <p>EPANET</p>
-    <div class="bar"><div style="width:75%"></div></div>
 </section>
 
 <!-- PROJECT -->
@@ -192,56 +210,64 @@ section {
     </div>
 </section>
 
+<!-- EXPERIENCE -->
+<section class="hidden">
+    <h2>Work Experience</h2>
+
+    <div class="project">
+        <div class="card">
+            <img src="hammer.jpeg">
+            <p>Hammer Test - Konsultan</p>
+        </div>
+
+        <div class="card">
+            <img src="rtk.jpeg">
+            <p>Survey RTK - Kontraktor</p>
+        </div>
+    </div>
+</section>
+
 <script>
-/* TYPING TEXT */
+/* TYPING */
 const words = [
     "Hydrology Analyst",
     "Civil Engineering Student",
-    "Survey Engineer",
-    "Water Resources Enthusiast"
+    "Survey Engineer"
 ];
 
-let i = 0;
-let j = 0;
-let currentWord = "";
-let isDeleting = false;
+let i = 0, j = 0, current = "", del = false;
 
-function type() {
-    currentWord = words[i];
+function typing(){
+    current = words[i];
 
-    if (isDeleting) {
-        document.getElementById("typing").textContent =
-            currentWord.substring(0, j--);
-    } else {
-        document.getElementById("typing").textContent =
-            currentWord.substring(0, j++);
-    }
+    document.getElementById("typing").textContent =
+        del ? current.substring(0, j--) : current.substring(0, j++);
 
-    if (!isDeleting && j === currentWord.length) {
-        isDeleting = true;
-        setTimeout(type, 1000);
+    if(!del && j === current.length){
+        del = true;
+        setTimeout(typing, 1000);
         return;
     }
 
-    if (isDeleting && j === 0) {
-        isDeleting = false;
+    if(del && j === 0){
+        del = false;
         i = (i + 1) % words.length;
     }
 
-    setTimeout(type, isDeleting ? 50 : 100);
+    setTimeout(typing, del ? 50 : 100);
 }
-type();
+typing();
 
-/* SCROLL ANIMATION */
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add("show");
+/* SCROLL */
+const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting){
+            e.target.classList.add("show");
         }
     });
 });
 
-document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+document.querySelectorAll(".hidden").forEach(el=>obs.observe(el));
 </script>
 
 </body>
