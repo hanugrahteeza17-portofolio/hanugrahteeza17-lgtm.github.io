@@ -1,60 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Hannugrah</title>
+
 <style>
 body {
     margin: 0;
     font-family: -apple-system, sans-serif;
     background: black;
     color: white;
-    text-align: center;
+    scroll-behavior: smooth;
 }
+
+/* SECTION FULL */
 .section {
-    min-height: 100vh;
-    padding: 40px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
 }
+
+/* TEXT */
+h1 { font-size: 50px; }
+h2 { font-size: 35px; }
+
+/* IMAGE */
 img {
-    max-width: 80%;
+    max-width: 70%;
     border-radius: 20px;
     margin-top: 20px;
+}
+
+/* ANIMASI */
+.fade {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 1s;
+}
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
 </head>
 
 <body>
 
-<div class="section">
+<div class="section fade">
     <h1>Hannugrah Teeza</h1>
     <p>Mahasiswa Teknik Sipil | Hidrologi</p>
     <img src="foto.jpg">
 </div>
 
-<div class="section">
+<div class="section fade">
     <h2>Work Experience</h2>
-    <img src="hammer.jpg">
+
+    <img src="hammer.jpeg">
     <p>Hammer Test</p>
 
-    <img src="rtk.jpg">
+    <img src="rtk.jpeg">
     <p>Survey RTK</p>
 </div>
 
-<div class="section">
+<div class="section fade">
     <h2>Project PLTMH</h2>
+
     <img src="layout.jpg">
-    <p>Layout Waduk</p>
+    <p>Layout</p>
 
     <img src="potongan.jpg">
-    <p>Potongan Struktur</p>
+    <p>Potongan</p>
 
     <img src="3d.jpg">
     <p>3D Power House</p>
 </div>
 
-<div class="section">
+<div class="section fade">
     <h2>Contact</h2>
     <p>Email: hanugrahteeza17@gmail.com</p>
 </div>
+
+<script>
+const fades = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+    fades.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if(top < window.innerHeight - 50){
+            el.classList.add('show');
+        }
+    });
+});
+</script>
 
 </body>
 </html>
