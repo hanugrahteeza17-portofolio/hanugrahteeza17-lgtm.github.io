@@ -6,9 +6,14 @@
 <title>Portfolio Hannugrah</title>
 
 <style>
-body {
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+body {
     background: #0a0f1c;
     color: white;
 }
@@ -18,7 +23,6 @@ nav {
     display: flex;
     justify-content: space-between;
     padding: 20px 50px;
-    background: #0a0f1c;
 }
 
 nav a {
@@ -39,19 +43,26 @@ nav a {
     font-size: 50px;
 }
 
-.hero-text span {
-    color: cyan;
+.hero-text h2 {
+    margin-top: 10px;
 }
 
-/* FOTO GLOW (IPHONE STYLE) */
+#typing {
+    color: cyan;
+    border-right: 2px solid cyan;
+    padding-right: 5px;
+}
+
+/* FOTO GLOW */
 .hero img {
     width: 250px;
     border-radius: 50%;
-    box-shadow: 0 0 30px cyan, 0 0 60px blue;
+    box-shadow: 0 0 30px cyan, 0 0 80px blue;
 }
 
 /* BUTTON */
 .btn {
+    display: inline-block;
     margin-top: 20px;
     padding: 12px 25px;
     background: cyan;
@@ -60,11 +71,12 @@ nav a {
     text-decoration: none;
 }
 
-/* SKILLS */
-.skills {
-    padding: 50px;
+/* SECTION */
+section {
+    padding: 60px;
 }
 
+/* SKILLS */
 .bar {
     background: #222;
     border-radius: 10px;
@@ -79,9 +91,9 @@ nav a {
 
 /* PROJECT */
 .project {
-    padding: 50px;
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -89,6 +101,24 @@ nav a {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 0 20px cyan;
+    text-align: center;
+}
+
+.card img {
+    width: 200px;
+    border-radius: 10px;
+}
+
+/* SCROLL ANIMATION */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
 </head>
@@ -108,8 +138,15 @@ nav a {
 <!-- HERO -->
 <section class="hero">
     <div class="hero-text">
-        <h1>Hello, I'm <span>Hannugrah</span></h1>
-        <p>Mahasiswa Teknik Sipil - Hidrologi</p>
+        <h1>Hello, I'm <span style="color:cyan;">Hannugrah</span></h1>
+        <h2>I'm a <span id="typing"></span></h2>
+
+        <p>
+        Mahasiswa Teknologi Rekayasa Konstruksi Bangunan Air dengan fokus pada
+        hidrologi dan hidrolika. Berpengalaman dalam hammer test, survey RTK,
+        serta analisis menggunakan ArcGIS, HEC-RAS, dan EPANET.
+        </p>
+
         <a href="#" class="btn">Download CV</a>
     </div>
 
@@ -117,7 +154,7 @@ nav a {
 </section>
 
 <!-- SKILLS -->
-<section class="skills" id="skills">
+<section id="skills" class="hidden">
     <h2>My Skills</h2>
 
     <p>AutoCAD</p>
@@ -128,25 +165,84 @@ nav a {
 
     <p>HEC-RAS</p>
     <div class="bar"><div style="width:80%"></div></div>
+
+    <p>EPANET</p>
+    <div class="bar"><div style="width:75%"></div></div>
 </section>
 
 <!-- PROJECT -->
-<section class="project" id="project">
-    <div class="card">
-        <img src="layout.jpg" width="200">
-        <p>Layout PLTMH</p>
-    </div>
+<section id="project" class="hidden">
+    <h2>My Project</h2>
 
-    <div class="card">
-        <img src="potongan.jpg" width="200">
-        <p>Potongan</p>
-    </div>
+    <div class="project">
+        <div class="card">
+            <img src="layout.jpg">
+            <p>Layout PLTMH</p>
+        </div>
 
-    <div class="card">
-        <img src="3d.jpg" width="200">
-        <p>3D Power House</p>
+        <div class="card">
+            <img src="potongan.jpg">
+            <p>Potongan</p>
+        </div>
+
+        <div class="card">
+            <img src="3d.jpg">
+            <p>3D Power House</p>
+        </div>
     </div>
 </section>
+
+<script>
+/* TYPING TEXT */
+const words = [
+    "Hydrology Analyst",
+    "Civil Engineering Student",
+    "Survey Engineer",
+    "Water Resources Enthusiast"
+];
+
+let i = 0;
+let j = 0;
+let currentWord = "";
+let isDeleting = false;
+
+function type() {
+    currentWord = words[i];
+
+    if (isDeleting) {
+        document.getElementById("typing").textContent =
+            currentWord.substring(0, j--);
+    } else {
+        document.getElementById("typing").textContent =
+            currentWord.substring(0, j++);
+    }
+
+    if (!isDeleting && j === currentWord.length) {
+        isDeleting = true;
+        setTimeout(type, 1000);
+        return;
+    }
+
+    if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+    }
+
+    setTimeout(type, isDeleting ? 50 : 100);
+}
+type();
+
+/* SCROLL ANIMATION */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
