@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,95 +8,145 @@
 <style>
 body {
     margin: 0;
-    font-family: -apple-system, sans-serif;
-    background: black;
+    font-family: 'Poppins', sans-serif;
+    background: #0a0f1c;
     color: white;
-    scroll-behavior: smooth;
 }
 
-/* SECTION FULL */
-.section {
-    height: 100vh;
+/* NAVBAR */
+nav {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background: #0a0f1c;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    justify-content: space-around;
     align-items: center;
-    text-align: center;
-    padding: 20px;
+    height: 100vh;
 }
 
-/* TEXT */
-h1 { font-size: 50px; }
-h2 { font-size: 35px; }
+.hero-text h1 {
+    font-size: 50px;
+}
 
-/* IMAGE */
-img {
-    max-width: 70%;
-    border-radius: 20px;
+.hero-text span {
+    color: cyan;
+}
+
+/* FOTO GLOW (IPHONE STYLE) */
+.hero img {
+    width: 250px;
+    border-radius: 50%;
+    box-shadow: 0 0 30px cyan, 0 0 60px blue;
+}
+
+/* BUTTON */
+.btn {
     margin-top: 20px;
+    padding: 12px 25px;
+    background: cyan;
+    border-radius: 30px;
+    color: black;
+    text-decoration: none;
 }
 
-/* ANIMASI */
-.fade {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: 1s;
+/* SKILLS */
+.skills {
+    padding: 50px;
 }
-.fade.show {
-    opacity: 1;
-    transform: translateY(0);
+
+.bar {
+    background: #222;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.bar div {
+    height: 10px;
+    background: cyan;
+    border-radius: 10px;
+}
+
+/* PROJECT */
+.project {
+    padding: 50px;
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: #111;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px cyan;
 }
 </style>
 </head>
 
 <body>
 
-<div class="section fade">
-    <h1>Hannugrah Teeza</h1>
-    <p>Mahasiswa Teknik Sipil | Hidrologi</p>
+<!-- NAVBAR -->
+<nav>
+    <h2>Portfolio</h2>
+    <div>
+        <a href="#">Home</a>
+        <a href="#skills">Skills</a>
+        <a href="#project">Project</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Hello, I'm <span>Hannugrah</span></h1>
+        <p>Mahasiswa Teknik Sipil - Hidrologi</p>
+        <a href="#" class="btn">Download CV</a>
+    </div>
+
     <img src="foto.jpg">
-</div>
+</section>
 
-<div class="section fade">
-    <h2>Work Experience</h2>
+<!-- SKILLS -->
+<section class="skills" id="skills">
+    <h2>My Skills</h2>
 
-    <img src="hammer.jpeg">
-    <p>Hammer Test</p>
+    <p>AutoCAD</p>
+    <div class="bar"><div style="width:90%"></div></div>
 
-    <img src="rtk.jpeg">
-    <p>Survey RTK</p>
-</div>
+    <p>ArcGIS</p>
+    <div class="bar"><div style="width:85%"></div></div>
 
-<div class="section fade">
-    <h2>Project PLTMH</h2>
+    <p>HEC-RAS</p>
+    <div class="bar"><div style="width:80%"></div></div>
+</section>
 
-    <img src="layout.jpg">
-    <p>Layout</p>
+<!-- PROJECT -->
+<section class="project" id="project">
+    <div class="card">
+        <img src="layout.jpg" width="200">
+        <p>Layout PLTMH</p>
+    </div>
 
-    <img src="potongan.jpg">
-    <p>Potongan</p>
+    <div class="card">
+        <img src="potongan.jpg" width="200">
+        <p>Potongan</p>
+    </div>
 
-    <img src="3d.jpg">
-    <p>3D Power House</p>
-</div>
-
-<div class="section fade">
-    <h2>Contact</h2>
-    <p>Email: hanugrahteeza17@gmail.com</p>
-</div>
-
-<script>
-const fades = document.querySelectorAll('.fade');
-
-window.addEventListener('scroll', () => {
-    fades.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if(top < window.innerHeight - 50){
-            el.classList.add('show');
-        }
-    });
-});
-</script>
+    <div class="card">
+        <img src="3d.jpg" width="200">
+        <p>3D Power House</p>
+    </div>
+</section>
 
 </body>
 </html>
